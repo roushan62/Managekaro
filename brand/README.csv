@@ -1,0 +1,8 @@
+Asset,File,Format,Colour,Use,Notes
+Primary logo,Managekaro-Logo.svg,SVG,Full colour light background,Website header and documents,Mark plus wordmark plus tagline
+Primary logo dark bg,Managekaro-Logo-Dark.svg,SVG,Full colour dark background,App sidebar and dark marketing header,Same artwork on ink background
+Logo English,Managekaro-Logo-English.svg,SVG,Full colour,Presentations and email signatures,No tagline variant
+Wordmark,Managekaro-Wordmark.svg,SVG,Full colour,When the mark is already present,Two-colour wordmark only
+App icon,Managekaro-AppIcon.svg,SVG,Full colour,Windows shortcut favicon and PWA,Ink tile with orange monogram
+Colour signature,Managekaro-Colours.csv,CSV,Palette,Design tokens for web print and signage,Primary secondary and neutrals with hex
+Brand guide,Managekaro-Brand-Guide.csv,CSV,Reference,Typography spacing and tone of voice,Read alongside the manual

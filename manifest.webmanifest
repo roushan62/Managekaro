@@ -1,0 +1,29 @@
+{
+  "name": "Managekaro — Interior Fit-out & Construction ERP + HRM",
+  "short_name": "Managekaro",
+  "description": "ERP + HRM for interior fit-out and construction companies: projects, BOQ, design, procurement, stores, finance, CRM, HR, payroll, AI copilot and analytics in one workspace.",
+  "id": "/",
+  "start_url": "/app",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#0B1220",
+  "theme_color": "#F2540B",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    { "src": "assets/img/logo-mark.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/img/logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Command Centre", "url": "/app#/dashboard", "description": "Live company KPIs" },
+    { "name": "Projects", "url": "/app#/projects", "description": "All fit-out and construction projects" },
+    { "name": "Approvals", "url": "/app#/approvals", "description": "Pending approvals" },
+    { "name": "AI Copilot", "url": "/app#/copilot", "description": "Ask anything about your business" }
+  ],
+  "screenshots": [
+    { "src": "assets/img/logo.svg", "sizes": "any", "type": "image/svg+xml", "form_factor": "wide", "label": "Managekaro Command Centre" }
+  ]
+}
