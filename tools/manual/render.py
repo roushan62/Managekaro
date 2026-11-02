@@ -1246,7 +1246,11 @@ def shot_download():
         rr(d, (cx + 28 + i * 128, cy + 26, cx + 28 + i * 128 + bw, cy + 54), 13, fill='#1B2540')
         text(d, (cx + 41 + i * 128, cy + 40), lab, 10, '#C0C9DA', True, 'lm')
     text(d, (cx + 28, cy + 84), 'Managekaro Desktop', 16, '#fff', True)
-    text(d, (cx + 28, cy + 108), 'Version 1.0.0 · Enterprise build · 0.73 MB', 11, '#8D98AE')
+    try:
+        mb = os.path.getsize(os.path.join(ROOT, 'downloads', 'Managekaro-Setup-1.0.0.exe')) / (1024 * 1024)
+    except Exception:
+        mb = 4.1
+    text(d, (cx + 28, cy + 108), 'Version 1.0.0 · Enterprise build · %.2f MB' % mb, 11, '#8D98AE')
     rr(d, (cx + 28, cy + 140, cx + 280, cy + 186), 10, fill=BRAND)
     text(d, (cx + 154, cy + 163), 'Download .exe', 13, '#fff', True, 'mm')
     rr(d, (cx + 296, cy + 140, cx + 470, cy + 186), 10, fill='#1B2540', outline='#2C3A5C')
@@ -1256,7 +1260,11 @@ def shot_download():
         bx = cx + 28 + i * 226
         text(d, (bx, cy + 216), l, 8.5, '#6D7893', True)
         text(d, (bx, cy + 234), v, 10.5, '#E6EAF2', True)
-    text(d, (cx + 28, cy + 266), 'SHA-256  697b1ca156ca3b2f22cc7989f1c8190289a0d169798c0e659dd2e818852eec14', 9, '#7C86A0', False, 'lm', mono=True)
+    try:
+        sha_line = open(os.path.join(ROOT, 'downloads', 'Managekaro-Setup-1.0.0.exe.sha256')).read().split()[0]
+    except Exception:
+        sha_line = 'see downloads/Managekaro-Setup-1.0.0.exe.sha256'
+    text(d, (cx + 28, cy + 266), 'SHA-256  ' + sha_line, 9, '#7C86A0', False, 'lm', mono=True)
     # steps
     sx = 800
     text(d, (sx, 400), 'HOW IT WORKS', 9, '#FFB68C', True)
