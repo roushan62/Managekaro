@@ -154,7 +154,7 @@
   S.build = function () {
     const r = U.rng(20260117);
     const today = U.today();
-    const db = { meta: { version: 14, generatedAt: new Date().toISOString() } };
+    const db = { meta: { version: 15, generatedAt: new Date().toISOString() } };
     const id = (g, i) => g + '-' + String(i).padStart(4, '0');
 
     db.org = {
@@ -255,22 +255,22 @@
 
     /* ---------------------------- projects ----------------------------- */
     const projDefs = [
-      ['Amazon Development Centre — BLR8 Fitout', 0, 'Corporate Fitout', 'Bengaluru', 82500, 'In Progress', 0.62],
-      ['Concentrix Floor 7 & 8 Interior Works', 1, 'Corporate Fitout', 'Gurugram', 64000, 'In Progress', 0.74],
-      ['The Executive Centre — Golf Course Rd', 3, 'Coworking', 'Gurugram', 38000, 'In Progress', 0.41],
-      ['Cafe Mocha — Khan Market Flagship', 5, 'F&B Fitout', 'Delhi', 4200, 'In Progress', 0.55],
-      ['Nexus Mall Food Court Renovation', 10, 'Retail Fitout', 'Pune', 21500, 'In Progress', 0.28],
-      ['MedCare OPD Block — Phase 2', 9, 'Healthcare Fitout', 'Gurugram', 47800, 'In Progress', 0.19],
-      ['Bata Flagship Store — Andheri', 15, 'Retail Fitout', 'Mumbai', 9800, 'Snagging', 0.94],
-      ['JSW Homes HQ — Worli Fitout', 6, 'Corporate Fitout', 'Mumbai', 71500, 'In Progress', 0.48],
-      ['Urban Nest Tower B — 34 Units', 12, 'Residential Construction', 'Gurugram', 128000, 'In Progress', 0.36],
-      ['TechNova Campus Cafe & Lounge', 13, 'F&B Fitout', 'Noida', 7600, 'Completed', 1],
-      ['HDFC Securities Wealth Centre', 17, 'Corporate Fitout', 'Mumbai', 15600, 'Completed', 1],
-      ['ICICI Home Finance — Regional Office', 2, 'Corporate Fitout', 'Mumbai', 18900, 'Completed', 1],
-      ['Bright Future School — Block C Extension', 11, 'Commercial Construction', 'Noida', 36400, 'On Hold', 0.12],
-      ['Olive Tree Resort — Villas Phase 1', 8, 'Hospitality Fitout', 'Goa', 89000, 'Planning', 0.04],
-      ['DHL Sort Centre — Office Wing', 14, 'Corporate Fitout', 'Gurugram', 13400, 'Planning', 0.02],
-      ['Sodexo Command Centre', 16, 'Corporate Fitout', 'Gurugram', 5200, 'In Progress', 0.66]
+      ['Amazon Development Centre — BLR8 Fitout', 0, 'Corporate Fitout', 'Bengaluru', 8250, 'In Progress', 0.62],
+      ['Concentrix Floor 7 & 8 Interior Works', 1, 'Corporate Fitout', 'Gurugram', 6400, 'In Progress', 0.74],
+      ['The Executive Centre — Golf Course Rd', 3, 'Coworking', 'Gurugram', 3800, 'In Progress', 0.41],
+      ['Cafe Mocha — Khan Market Flagship', 5, 'F&B Fitout', 'Delhi', 420, 'In Progress', 0.55],
+      ['Nexus Mall Food Court Renovation', 10, 'Retail Fitout', 'Pune', 2150, 'In Progress', 0.28],
+      ['MedCare OPD Block — Phase 2', 9, 'Healthcare Fitout', 'Gurugram', 4780, 'In Progress', 0.19],
+      ['Bata Flagship Store — Andheri', 15, 'Retail Fitout', 'Mumbai', 980, 'Snagging', 0.94],
+      ['JSW Homes HQ — Worli Fitout', 6, 'Corporate Fitout', 'Mumbai', 7150, 'In Progress', 0.48],
+      ['Urban Nest Tower B — 34 Units', 12, 'Residential Construction', 'Gurugram', 12800, 'In Progress', 0.36],
+      ['TechNova Campus Cafe & Lounge', 13, 'F&B Fitout', 'Noida', 760, 'Completed', 1],
+      ['HDFC Securities Wealth Centre', 17, 'Corporate Fitout', 'Mumbai', 1560, 'Completed', 1],
+      ['ICICI Home Finance — Regional Office', 2, 'Corporate Fitout', 'Mumbai', 1890, 'Completed', 1],
+      ['Bright Future School — Block C Extension', 11, 'Commercial Construction', 'Noida', 3640, 'On Hold', 0.12],
+      ['Olive Tree Resort — Villas Phase 1', 8, 'Hospitality Fitout', 'Goa', 8900, 'Planning', 0.04],
+      ['DHL Sort Centre — Office Wing', 14, 'Corporate Fitout', 'Gurugram', 1340, 'Planning', 0.02],
+      ['Sodexo Command Centre', 16, 'Corporate Fitout', 'Gurugram', 520, 'In Progress', 0.66]
     ];
     db.projects = projDefs.map((p, i) => {
       const [name, cliIdx, type, city, valueL, status, prog] = p;
@@ -279,7 +279,7 @@
       const durDays = status === 'Completed' ? r.int(150, 210) : Math.round(r.int(160, 320));
       const start = U.addD(today, startOff), end = U.addD(start, durDays);
       const contractValue = valueL * 100000;
-      const budget = Math.round(contractValue * (0.76 + r() * 0.06));
+      const budget = Math.round(contractValue * (0.78 + r() * 0.05));
       const spent = Math.round(budget * (status === 'Completed' ? 0.97 : prog * (0.88 + r() * 0.2)));
       const pm = pmPool[i % pmPool.length];
       const clientApproved = status === 'Completed' ? 100 : Math.round(prog * 100 + r.int(-6, 4));

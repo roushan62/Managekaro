@@ -255,6 +255,7 @@ body.mk-site .app{display:none}
 .doc-body .kbdrow kbd{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:3px 8px;font-family:var(--ff);font-size:11.6px;color:#fff}
 
 /* -------------------------------- utilities ----------------------------- */
+.mt10{margin-top:10px}.mt14{margin-top:14px}.mb14{margin-bottom:14px}.gap8{gap:8px}
 .gtext{background:linear-gradient(100deg,#FFB27A,#F2540B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .center{text-align:center}
 .mt24{margin-top:24px}.mt40{margin-top:40px}

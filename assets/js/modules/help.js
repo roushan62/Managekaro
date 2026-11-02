@@ -140,111 +140,18 @@
     ] }
   ];
 
-  /* --------------- visual figure: replicated live screen --------------- */
-  function figure(title, caption, inner) {
-    return `<figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>managekaro.app</span><b>${U.esc(title)}</b></div>
-      <div class="shot-body">${inner}</div><figcaption>${caption}</figcaption></figure>`;
-  }
-
   /* real product screenshots (rendered from the same seeded dataset) */
   const SHOT = {
-    start: '01-command-centre',
-    dashboard: '01-command-centre',
-    projects: '02-projects',
-    boq: '03-project-boq',
-    schedule: '04-gantt',
-    procurement: '05-procurement',
-    finance: '06-finance',
-    crm: '07-crm',
-    hrm: '08-hrm',
-    payroll: '09-payroll',
-    copilot: '10-copilot',
-    analytics: '11-analytics',
-    admin: '12-settings',
-    manual: '13-user-manual',
-    download: '14-download',
-    mobile: '15-mobile-dpr'
+    start: '01-command-centre', dashboard: '01-command-centre', projects: '02-projects',
+    boq: '03-project-boq', schedule: '04-gantt', procurement: '05-procurement',
+    finance: '06-finance', crm: '07-crm', hrm: '08-hrm', payroll: '09-payroll',
+    copilot: '10-copilot', analytics: '11-analytics', admin: '12-settings',
+    manual: '13-user-manual', download: '14-download', mobile: '15-mobile-dpr'
   };
   function shot(key, caption) {
     const f = SHOT[key];
     if (!f) return '';
     return `<figure class="shot"><img src="assets/img/shots/${f}.png" alt="${U.attr(caption || key)}" loading="lazy"><figcaption>${caption}</figcaption></figure>`;
-  }
-
-  function kpiStrip(items) {
-    return `<div class="shot-kpis">${items.map(i => `<div class="shot-kpi"><small>${U.esc(i[0])}</small><b>${i[1]}</b><em>${U.esc(i[2] || '')}</em></div>`).join('')}</div>`;
-  }
-
-  function previews() {
-    const m = S.metrics();
-    const figs = {};
-    figs.start = figure('Command Centre', 'Command Centre — portfolio KPIs, planned vs actual progress and health split for the live portfolio.',
-      kpiStrip([['Contract value', U.cur(m.cv), 'Gross margin ' + m.grossMargin + '%'], ['Collected', U.cur(m.received), m.collectionPct + '% of billed'], ['Projected profit', U.cur(m.cv - m.budget), 'Burn ' + m.burnPct + '%'], ['At risk', m.atRisk + ' of ' + m.live, m.openSnags + ' open snags']])
-      + `<div class="shot-rows">${S.db.projects.filter(p => p.status === 'In Progress').slice(0, 5).map(p => `<div class="shot-row"><span class="d" style="background:${p.health === 'Critical' ? '#DC2626' : p.health === 'At Risk' ? '#D97706' : '#0E9F6E'}"></span><span class="n">${U.esc(p.name)}</span><span class="p">${p.progress}%</span><span class="s">${U.cur(p.contractValue)}</span></div>`).join('')}</div>`);
-    figs.dashboard = null;
-
-    figs.projects = figure('Projects', 'Projects — filterable portfolio with progress, contract value, collection and margin per project.',
-      `<div class="shot-toolbar"><span class="chip2">Search project, code, client…</span><span class="chip2">Status: All</span><span class="chip2">Type: All</span></div>
-      <table class="shot-tbl"><thead><tr><th>Project</th><th>PM</th><th>Progress</th><th>Contract</th><th>Margin</th><th>Health</th></tr></thead><tbody>
-      ${S.db.projects.slice(0, 6).map(p => `<tr><td><b>${U.esc(p.name.split('—')[0])}</b><span>${p.code} · ${p.type}</span></td><td>${U.esc(p.pm.split(' ')[0])}</td>
-      <td><span class="pb"><i style="width:${p.progress}%"></i></span>${p.progress}%</td><td class="r">${U.cur(p.contractValue)}</td><td class="r">${p.margin}%</td>
-      <td><span class="st ${p.health === 'On Track' ? 'ok' : p.health === 'At Risk' ? 'warn' : 'bad'}">${p.health}</span></td></tr>`).join('')}
-      </tbody></table>`);
-
-    figs.boq = figure('Project · BOQ & scope', 'Project detail → BOQ & scope. Every line carries quantity, rate, executed quantity, progress and variance against budget rate.',
-      `<table class="shot-tbl"><thead><tr><th>WBS</th><th>Description</th><th>Qty</th><th>Rate</th><th>Amount</th><th>Executed</th><th>Progress</th></tr></thead><tbody>
-      ${S.db.boq.slice(0, 6).map(b => `<tr><td class="mono">${b.wbs}</td><td><b>${U.esc(b.description.slice(0, 46))}</b><span>${b.trade} · ${b.unit}</span></td>
-      <td class="r">${U.num(b.qty, 0)}</td><td class="r">${U.curFull(b.rate)}</td><td class="r">${U.cur(b.amount)}</td><td class="r">${U.num(b.executedQty, 0)}</td>
-      <td><span class="pb"><i style="width:${b.progress}%"></i></span>${b.progress}%</td></tr>`).join('')}
-      </tbody></table>`);
-
-    figs.gantt = figure('Schedule & Gantt', 'Schedule — Gantt with baseline bars, slippage indicator and milestone diamonds, plus the delay register.',
-      `<div class="shot-gantt">${S.db.activities.filter(a => a.projectId === S.db.projects[0].id).slice(0, 7).map((a, i) => `<div class="gr"><span class="nm">${U.esc(a.name.slice(0, 22))}</span>
-        <span class="tr"><i class="${a.late ? 'r' : a.progress > 85 ? 'g' : ''}" style="left:${(i * 9) % 45}%;width:${28 + (i % 3) * 8}%"></i></span><b>${a.progress}%</b></div>`).join('')}</div>
-      <div class="legend2"><span><i style="background:#CBD5E1"></i>Baseline</span><span><i style="background:#F2540B"></i>In progress</span><span><i style="background:#0E9F6E"></i>Complete</span><span><i style="background:#DC2626"></i>Slipping</span></div>`);
-
-    figs.dpr = figure('Daily progress reports', 'Daily Progress — every site report with manpower, work done, blockers and photos, auto-shared to client groups.',
-      `<table class="shot-tbl"><thead><tr><th>Date</th><th>Project</th><th>Manpower</th><th>Work done</th><th>Blockers</th><th>Quality</th></tr></thead><tbody>
-      ${S.db.dprs.slice(0, 5).map(d => `<tr><td>${U.fmtD(d.date)}</td><td><b>${U.esc(S.projName(d.projectId).split('—')[0])}</b></td><td>${d.manpower}</td>
-      <td>${U.esc(d.workDone.slice(0, 52))}…</td><td><span class="st ${d.blockers === 'No blocker reported.' ? 'ok' : 'warn'}">${d.blockers === 'No blocker reported.' ? 'None' : 'Open'}</span></td><td>${d.qualityScore}</td></tr>`).join('')}
-      </tbody></table>`);
-
-    figs.procurement = figure('Procurement', 'Procurement — requisitions, purchase orders, GRNs, vendors, rate contracts and subcontracts in one chain.',
-      kpiStrip([['Committed', U.cur(U.sum(S.db.pos, p => p.total)), S.db.pos.length + ' POs'], ['Pending approval', S.db.prs.filter(p => p.status === 'Pending Approval').length, 'requisitions'], ['GRNs', S.db.grns.length, 'goods receipts'], ['Payables', U.cur(S.metrics().payable), 'vendor invoices']])
-      + `<table class="shot-tbl"><thead><tr><th>PO</th><th>Vendor</th><th>Value</th><th>Delivery</th><th>Status</th></tr></thead><tbody>
-      ${S.db.pos.slice(0, 4).map(p => `<tr><td class="mono">${p.code}</td><td><b>${U.esc(p.vendor)}</b></td><td class="r">${U.cur(p.total)}</td><td>${U.fmtD(p.deliveryDate)}</td><td><span class="st ${p.status === 'Fully Received' ? 'ok' : p.status === 'Pending Approval' ? 'warn' : 'ok'}">${p.status}</span></td></tr>`).join('')}
-      </tbody></table>`);
-
-    figs.finance = figure('Finance & billing', 'Finance — receivables, payables, payments, expenses, ledgers and GST/TDS in one place.',
-      kpiStrip([['Billed', U.cur(m.billed), S.db.clientInvoices.length + ' invoices'], ['Collected', U.cur(m.received), m.collectionPct + '%'], ['Receivable', U.cur(m.receivable), 'overdue ' + U.cur(m.overdueRec)], ['Payable', U.cur(m.payable), S.db.invoices.filter(i => i.status !== 'Paid').length + ' open']])
-      + `<table class="shot-tbl"><thead><tr><th>Invoice</th><th>Client</th><th>Milestone</th><th>Amount</th><th>Due</th><th>Status</th></tr></thead><tbody>
-      ${S.db.clientInvoices.slice(0, 4).map(c => `<tr><td class="mono">${c.code}</td><td><b>${U.esc(c.client)}</b></td><td>${U.esc(c.milestone)}</td><td class="r">${U.cur(c.total)}</td><td>${U.fmtD(c.dueDate)}</td><td><span class="st ${c.status === 'Paid' ? 'ok' : c.status === 'Overdue' ? 'bad' : 'warn'}">${c.status}</span></td></tr>`).join('')}
-      </tbody></table>`);
-
-    figs.hrm = figure('HR dashboard', 'HRM — headcount, attendance, payroll and hiring in one dashboard, with employee-level profiles.',
-      kpiStrip([['Headcount', S.db.employees.length, 'people on rolls'], ['Present today', 41, 'of 56'], ['Monthly payroll', U.cur(U.sum(S.db.payroll.filter(p => p.month === U.lastMonths(1)[0].key), p => p.net)), 'net'], ['Open roles', S.db.jobs.filter(j => j.status === 'Open').length, S.db.candidates.length + ' candidates']])
-      + `<table class="shot-tbl"><thead><tr><th>Employee</th><th>Designation</th><th>Department</th><th>Gross</th><th>Status</th></tr></thead><tbody>
-      ${S.db.employees.slice(0, 4).map(e => `<tr><td><b>${U.esc(e.name)}</b><span>${e.id}</span></td><td>${U.esc(e.designation)}</td><td>${U.esc((S.dept(e.deptId) || {}).name || '')}</td><td class="r">${U.curFull(e.gross)}</td><td><span class="st ok">${e.status}</span></td></tr>`).join('')}
-      </tbody></table>`);
-
-    figs.payroll = figure('Payroll', 'Payroll — cycle summary with statutory deductions, employee-level pay register and printable payslips.',
-      kpiStrip([['Employees', S.db.payroll.filter(p => p.month === U.lastMonths(1)[0].key).length, 'in cycle'], ['Gross', U.cur(U.sum(S.db.payroll.filter(p => p.month === U.lastMonths(1)[0].key), p => p.gross)), 'payout'], ['Deductions', U.cur(U.sum(S.db.payroll.filter(p => p.month === U.lastMonths(1)[0].key), p => p.deductions)), 'PF/ESI/PT/TDS'], ['Net payable', U.cur(U.sum(S.db.payroll.filter(p => p.month === U.lastMonths(1)[0].key), p => p.net)), 'NEFT']])
-      + `<table class="shot-tbl"><thead><tr><th>Employee</th><th>Days</th><th>Basic</th><th>Gross</th><th>Deductions</th><th>Net</th></tr></thead><tbody>
-      ${S.db.payroll.filter(p => p.month === U.lastMonths(1)[0].key).slice(0, 4).map(p => `<tr><td><b>${U.esc(p.employee)}</b></td><td>${p.present}/${p.days}</td><td class="r">${U.curFull(p.basic)}</td><td class="r">${U.curFull(p.gross)}</td><td class="r">−${U.curFull(p.deductions)}</td><td class="r"><b>${U.curFull(p.net)}</b></td></tr>`).join('')}
-      </tbody></table>`);
-
-    figs.copilot = figure('AI Copilot', 'AI Copilot — natural-language answers computed from your own BOQ, POs, invoices, schedule, snags and payroll.',
-      `<div class="shot-chat"><div class="msg user">Which projects are bleeding margin?</div>
-      <div class="msg bot"><div class="av2">${icon('sparkles', 11)}</div><div><p>Across ${S.db.projects.length} projects the portfolio margin is <b>${m.grossMargin}%</b>. ${S.db.boq.filter(b => b.variance > 0).length} BOQ lines are ordered above budget rate, leaking <b>${U.cur(U.sum(S.db.boq.filter(b => b.variance > 0), b => b.variance))}</b>.</p>
-      <table class="shot-tbl mini"><thead><tr><th>Project</th><th>Value</th><th>Margin</th></tr></thead><tbody>${S.db.projects.slice(0, 3).map(p => `<tr><td>${p.code}</td><td class="r">${U.cur(p.contractValue)}</td><td class="r">${p.margin}%</td></tr>`).join('')}</tbody></table>
-      <div class="hint">${icon('zap', 10)} Biggest leak: carpet tile ordered ₹12/sf above budget on ${S.db.projects[0].code}.</div></div></div></div>`);
-
-    figs.approvals = figure('Approvals inbox', 'Approvals — amount-based hierarchy with SLA, level tracking and one-click approve or reject with comment.',
-      `<table class="shot-tbl"><thead><tr><th>Type</th><th>Reference</th><th>Amount</th><th>Level</th><th>SLA</th><th>Status</th></tr></thead><tbody>
-      ${S.db.approvals.slice(0, 5).map(a => `<tr><td><b>${a.type}</b></td><td class="mono">${a.ref}</td><td class="r">${U.cur(a.amount)}</td><td>L${a.level} of ${a.levels}</td><td><span class="st ${a.sla < 0 ? 'bad' : 'ok'}">${a.sla < 0 ? Math.abs(a.sla) + 'd over' : a.sla + 'd left'}</span></td><td><span class="st warn">${a.status}</span></td></tr>`).join('')}
-      </tbody></table>`);
-
-    return figs;
   }
 
   /* extras carry their own x.y numbers — continue the chapter sequence */
@@ -260,7 +167,6 @@
   }
 
   MK.docsRender = function () {
-    const figs = previews();
     const map = { start: 'start', dashboard: 'start', projects: 'projects', schedule: 'gantt', docs: 'boq', procurement: 'procurement', finance: 'finance', crm: 'projects', hrm: 'hrm', intel: 'copilot', admin: 'approvals', roles: 'approvals', install: 'start', glossary: null };
     const figFor = {
       start: [shot('start', 'Figure 1.1 — Command Centre: the first screen after sign-in. Contract value, billing, receivables and margin across the whole portfolio.'),

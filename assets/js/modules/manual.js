@@ -338,7 +338,7 @@ root as the output directory; the included <code>vercel.json</code> handles clea
 the same way. Locally run <code>npm start</code> and open <code>http://localhost:5173</code>.</p>
 
 <h4>13.7 Data, backup and reset</h4>
-<p>The demo persists to browser local storage under <code>managekaro.db.v14</code>. Settings → Data &amp; backup exports
+<p>The demo persists to browser local storage under <code>managekaro.db.v15</code>. Settings → Data &amp; backup exports
 the whole dataset as JSON and can reset it to the deterministic seed. A production deployment swaps the store for an
 API — module code reads through <code>MK.store</code>, so no screen logic changes.</p>
 

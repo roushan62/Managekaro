@@ -49,7 +49,40 @@
 
   const LOGOS = ['Amazon', 'Concentrix', 'ICICI Home Finance', 'The Executive Centre', 'Livspace', 'JSW', 'Semac', 'Café Mocha', 'MedCare', 'Nexus Mall', 'DHLSupply', 'Urban Nest'];
 
-  const MOCK = `<div class="mock fade-up">
+  /* the hero preview is rendered from the same seeded dataset as the app */
+  function mockData() {
+    const S = MK.store, U2 = MK.U;
+    if (!S || !S.db) {
+      return { live: 11, cv: '₹68.2 Cr', received: '₹41.9 Cr', receivable: '₹11.8 Cr', overdue: '₹6.3 Cr',
+        snags: 128, critical: 14, gm: 20.6, collection: 61.4,
+        plan: [22, 34, 41, 52, 63, 74], actual: [20, 31, 39, 47, 58, 69],
+        months: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+        rows: [{ name: 'Amazon BLR8 Fitout', code: 'PRJ-0001', progress: 62, health: 'On track', color: '#F2540B' }],
+        insight: 'Three POs are ordered above BOQ rate on PRJ-0003.' };
+    }
+    const m = S.metrics();
+    const months = U2.lastMonths(6);
+    const billed = months.map(d => U2.sum(S.db.clientInvoices.filter(i => (i.date || '').slice(0, 7) === d.key), i => i.total) / 1e5);
+    const received = months.map(d => U2.sum(S.db.clientInvoices.filter(i => (i.date || '').slice(0, 7) === d.key), i => i.received || 0) / 1e5);
+    const top = S.db.projects.filter(p => p.status === 'In Progress').slice(0, 3);
+    return {
+      live: m.live, cv: U2.cur(m.cv), received: U2.cur(m.received), receivable: U2.cur(m.receivable),
+      overdue: U2.cur(m.overdueRec), snags: m.openSnags, critical: m.criticalSnags,
+      gm: m.grossMargin, collection: m.collectionPct,
+      plan: billed.map(v => Math.round(v)), actual: received.map(v => Math.round(v)),
+      months: months.map(d => d.label),
+      rows: top.map(p => ({
+        name: (p.name || '').split('—')[0].trim(), code: p.id, progress: p.progress, health: p.health,
+        warn: p.health !== 'On Track',
+        color: p.health === 'Critical' ? '#DC2626' : p.health === 'At Risk' ? '#E0A800' : '#F2540B'
+      })),
+      insight: `${m.atRisk} projects below the 12% margin floor — ${U2.cur(m.receivable)} of receivable tied to them.`
+    };
+  }
+
+  function MOCK_BLOCK() {
+    const mock = mockData();
+    return `<div class="mock fade-up">
     <div class="mock-bar"><i></i><i></i><i></i><span class="url">managekaro.app/dashboard</span></div>
     <div class="mock-body">
       <div class="mock-side">
@@ -58,26 +91,25 @@
         <div class="mi"><i></i>HRM & Payroll</div><div class="mi"><i></i>CRM</div><div class="mi"><i></i>AI Copilot</div><div class="mi"><i></i>Analytics</div>
       </div>
       <div class="mock-main">
-        <div class="mock-h"><div><b>Portfolio command centre</b><div style="font-size:10.5px;color:#6B7894">11 live projects · ₹62.4 Cr in execution</div></div><span>FY 26-27 · Today</span></div>
+        <div class="mock-h"><div><b>Portfolio command centre</b><div style="font-size:10.5px;color:#6B7894">${mock.live} live projects · ${mock.cv} in execution</div></div><span>FY 26-27 · Today</span></div>
         <div class="mock-kpis">
-          <div class="mock-kpi"><small>Contract value</small><b>₹68.2 Cr</b><span class="up">▲ 12.4% vs LY</span></div>
-          <div class="mock-kpi"><small>Collected</small><b>₹41.9 Cr</b><span class="up">61.4% of billed</span></div>
-          <div class="mock-kpi"><small>Payables</small><b>₹7.8 Cr</b><span style="font-size:9.5px;color:#FBBF24;font-weight:700">3 invoices hold</span></div>
-          <div class="mock-kpi"><small>Open snags</small><b>128</b><span style="font-size:9.5px;color:#F87171;font-weight:700">14 critical</span></div>
+          <div class="mock-kpi"><small>Contract value</small><b>${mock.cv}</b><span class="up">${mock.gm}% gross margin</span></div>
+          <div class="mock-kpi"><small>Collected</small><b>${mock.received}</b><span class="up">${mock.collection}% of billed</span></div>
+          <div class="mock-kpi"><small>Receivable</small><b>${mock.receivable}</b><span style="font-size:9.5px;color:#FBBF24;font-weight:700">${mock.overdue} overdue</span></div>
+          <div class="mock-kpi"><small>Open snags</small><b>${mock.snags}</b><span style="font-size:9.5px;color:#F87171;font-weight:700">${mock.critical} critical</span></div>
         </div>
         <div class="mock-chart">
           <div style="display:flex;justify-content:space-between;font-size:10px;color:#6B7894;margin-bottom:8px"><span>Planned vs actual progress</span><span>Last 6 months</span></div>
-          ${MK.UI ? MK.UI.lineChart([{ name: 'Planned', data: [22, 34, 41, 52, 63, 74], color: '#5B7099', fill: false }, { name: 'Actual', data: [20, 31, 39, 47, 58, 69], color: '#F2540B' }], ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'], { height: 130 }) : ''}
+          ${MK.UI ? MK.UI.lineChart([{ name: 'Planned', data: mock.plan, color: '#5B7099', fill: false }, { name: 'Actual', data: mock.actual, color: '#F2540B' }], mock.months, { height: 130 }) : ''}
         </div>
         <div style="margin-top:12px;display:grid;grid-template-columns:1fr;gap:0">
-          <div class="mrow"><span class="b"></span>Amazon BLR8 Fitout · MK-1024<span class="p">62%</span><span class="st">On track</span></div>
-          <div class="mrow"><span class="b" style="background:#2563EB"></span>Concentrix Floor 7 & 8 · MK-1025<span class="p">74%</span><span class="st">On track</span></div>
-          <div class="mrow"><span class="b" style="background:#E0A800"></span>Nexus Mall Food Court · MK-1028<span class="p">28%</span><span class="st w">At risk</span></div>
+          ${mock.rows.map(r => `<div class="mrow"><span class="b" style="background:${r.color}"></span>${U.esc(r.name)} · ${r.code}<span class="p">${r.progress}%</span><span class="st ${r.warn ? 'w' : ''}">${r.health}</span></div>`).join('')}
         </div>
       </div>
     </div>
-    <div class="mock-float"><span class="ic">${icon('sparkles', 14)}</span><div><b>Copilot:</b> Margin on MK-1028 dropped 2.1% — 3 POs above BOQ rate.</div></div>
+    <div class="mock-float"><span class="ic">${icon('sparkles', 14)}</span><div><b>Copilot:</b> ${U.esc(mock.insight)}</div></div>
   </div>`;
+  }
 
   const FEATURES = [
     ['building', 'Projects & BOQ', 'BOQ-first project control: scope, quantities, installed progress, change orders and item-level margin guardrails.', '/site/solutions/projects'],
@@ -102,7 +134,7 @@
         <a class="mbtn ghost lg" href="#/download">${icon('download', 15)} Download for Windows</a>
       </div>
       <div class="hero-note"><span>${icon('check', 13)} No credit card for demo</span><span>${icon('check', 13)} Go live in 21 days</span><span>${icon('check', 13)} Tally / WhatsApp / P6 ready</span></div>
-      ${MOCK}
+      ${MOCK_BLOCK()}
     </div></section>
 
     <section class="sec tight"><div class="wrap-x">

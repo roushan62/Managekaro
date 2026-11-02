@@ -2,7 +2,7 @@
 (function (MK) {
   'use strict';
   const U = MK.U;
-  const KEY = 'managekaro.db.v14';
+  const KEY = 'managekaro.db.v15';
   const PREF = 'managekaro.prefs.v1';
   const S = {};
 
@@ -15,7 +15,7 @@
       const raw = localStorage.getItem(KEY);
       if (raw) {
         const d = JSON.parse(raw);
-        if (d && d.meta && d.meta.version === 14) return d;
+        if (d && d.meta && d.meta.version === 15) return d;
       }
     } catch (e) { console.warn('load failed', e); }
     const fresh = MK.Seed.build();
@@ -154,7 +154,8 @@
       completed: S.db.projects.filter(p => p.status === 'Completed').length, hold: S.db.projects.filter(p => p.status === 'On Hold').length,
       cv, liveValue, billed, received, cost, budget, receivable, overdueRec, payable,
       grossMargin: cv ? U.round(((cv - budget) / cv) * 100, 1) : 0,
-      actualMargin: received ? U.round(((received - cost) / received) * 100, 1) : 0,
+      // actual margin is measured against revenue recognised (billed), not cash collected
+      actualMargin: billed ? U.round(((billed - cost) / billed) * 100, 1) : 0,
       progress: U.round(weighting, 1), openSnags, criticalSnags, pendingApprovals,
       collectionPct: billed ? U.round((received / billed) * 100, 1) : 0,
       burnPct: budget ? U.round((cost / budget) * 100, 1) : 0,
