@@ -1,0 +1,109 @@
+[
+ [
+  "Delivery",
+  "Project control from award to handover: one project workspace links scope, schedule, cost and quality.",
+  [
+   "Projects with type, city, contract value, health, PM, client and nine tabs per project",
+   "BOQ with WBS codes, trades, units, rates, executed quantities and rate variance per line",
+   "Change orders with justification, client approval, approval matrix and automatic BOQ impact",
+   "Activity schedule with baseline, dependencies, milestones, delay register and critical path",
+   "Gantt with drag-to-reschedule, planned vs actual S-curve and slipping-activity markers",
+   "Daily progress reports with manpower by trade, work done, material received, blockers and photos",
+   "Snag list with trade, location, priority, owner, due date and photo proof of closure",
+   "RFIs to consultants with due dates, answers and drawing-revision linkage",
+   "Drawing register with revisions, GFC status, pin comments and superseded history",
+   "Handover pack: as-built drawings, O&M manuals, warranties, test certificates and closure evidence"
+  ]
+ ],
+ [
+  "Commercials & supply chain",
+  "Every rupee committed, received and billed is traceable to a project and a BOQ line.",
+  [
+   "Indents raised against BOQ lines with approval hierarchy",
+   "RFQs to multiple vendors with side-by-side rate comparison",
+   "Purchase orders that post committed cost to the project budget immediately",
+   "GRN with full, partial and rejected receipts; stock and PO status update together",
+   "Three-way match (PO, GRN, vendor invoice) before payment release",
+   "Rate contracts and subcontracts with retention and mobilisation advances",
+   "Multi-warehouse inventory with issue-to-project, returns, transfers and reorder levels",
+   "Vendor master with scorecards for delivery reliability, quality and rate competitiveness"
+  ]
+ ],
+ [
+  "Finance & billing",
+  "Receivables, payables, statutory and margin in one ledger, closed monthly without spreadsheet reconciliation.",
+  [
+   "Client billing by milestone with GST, retention and TDS applied automatically",
+   "Invoice register with due dates, ageing buckets and collection status",
+   "Receivables ageing 0-30 / 31-60 / 61-90 / 90+ with weighted collection days",
+   "Vendor bills, payment scheduling and expense claims with approval limits",
+   "Budget vs committed vs actual per cost head, project P&L and portfolio consolidation",
+   "Margin leakage report: BOQ lines above budget rate, wastage, unbilled variations and overtime",
+   "Cash position forecast with runway, month-end close checklist and lock",
+   "Every export is CSV and pushable to Tally Prime or Zoho Books"
+  ]
+ ],
+ [
+  "Growth",
+  "Pipeline discipline from first enquiry to a signed contract, with margin held through negotiation.",
+  [
+   "Lead capture from referral, consultant, repeat client, broker, website, campaign, walk-in and cold outreach",
+   "Six-stage pipeline with weighted value, source conversion and average days to close",
+   "Site survey scheduling with area, budget band and scope notes",
+   "Quotation templates with scope lines, rates, margin target and GST",
+   "Revision history that records the margin traded away at each round",
+   "One-click conversion of a won quotation into a project with its BOQ"
+  ]
+ ],
+ [
+  "People (HRM)",
+  "One attendance and payroll engine for staff and site labour, fully statutory.",
+  [
+   "Employee master with statutory IDs (PAN, UAN, ESI), bank details and CTC structure",
+   "Geo-fenced mobile attendance, biometric import and manual muster",
+   "Shifts, weekly offs, holidays, overtime, late marks and LOP",
+   "Six leave types with balances, manager approval and team calendar",
+   "Payroll with PF, ESI, professional tax and TDS; printable payslips and NEFT bank file",
+   "Recruitment funnel with one-click hire that creates the employee record and login",
+   "Appraisal cycles with ratings and increments; training calendar with enrolment",
+   "Employee self-service for payslips, documents, leave and timesheets"
+  ]
+ ],
+ [
+  "Intelligence",
+  "Answers computed from live transactions, not typed summaries.",
+  [
+   "Command Centre with portfolio KPIs, health split, cash and pending approvals",
+   "Analytics with six tabs: executive, delivery, commercial, people, supply chain, client",
+   "Exception engine for cost overrun, billing lag, snag ageing, low stock and slippage",
+   "AI Copilot that answers questions over projects, BOQ, POs, invoices, payroll and snags",
+   "Six background agents writing into a risk register with owners and severity",
+   "Scheduled MIS packs by email or WhatsApp"
+  ]
+ ],
+ [
+  "Platform & admin",
+  "Enterprise controls without enterprise complexity.",
+  [
+   "Nineteen roles with per-module permissions and amount ceilings on approvals",
+   "Amount-based approval matrix with SLA tracking and delegation",
+   "Client portal and vendor portal logins limited to their own records",
+   "Masters for company, units, clients, vendors, items, trades, templates",
+   "Integrations: Tally Prime, Zoho Books, WhatsApp Business, Google Workspace, AutoCAD/Revit, Razorpay, DigiLocker/eSign, Power BI",
+   "Scoped API keys and webhooks for your own systems",
+   "Audit log with before/after values, filterable by module and user",
+   "JSON backup, per-module CSV export and demo-data reset"
+  ]
+ ],
+ [
+  "Apps & deployment",
+  "The same workspace on every device, including site offices with no connectivity.",
+  [
+   "Web workspace delivered as a static bundle, deployable to Vercel with clean URLs",
+   "Installable PWA for phones with DPR, GRN, snag and attendance shortcuts",
+   "Native Windows desktop executable (64-bit and 32-bit) with the whole app embedded",
+   "Offline local mode that needs no runtime, no admin rights and no account",
+   "Print-ready documents: payslips, invoices, BOQ, project P&L and this manual"
+  ]
+ ]
+]

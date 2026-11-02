@@ -1,0 +1,16 @@
+Section,Rule
+Name,Managekaro — always one word capital M lowercase k
+Tagline,ERP · HRM · PROJECTS
+Descriptor,SaaS ERP and HRM for interior fit-out and construction companies
+Tone,Plain confident operations language — say what the screen does not how clever it is
+Sentence case,Use sentence case for headings buttons and labels
+Numbers,Indian format with lakh and crore in summaries and full rupees in ledgers
+Dates,02 Nov 26 in tables and 2 November 2026 in documents
+Typeface,Inter 400 500 600 700 800 for UI and JetBrains Mono for codes and IDs
+Spacing,8px base grid — 8 16 24 32 40
+Radius,8px controls 12px cards 16px heroes
+Elevation,One soft shadow only — avoid stacked shadows
+Icons,1.5px stroke 16px in tables 18px in navigation 20px in empty states
+Clear space,Minimum clear space around the logo equals half the height of the mark
+Minimum size,Mark 20px logo lockup 96px wide
+Dont,Do not recolour the mark do not stretch it do not place it on busy photography

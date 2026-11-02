@@ -1,0 +1,17 @@
+Token,Hex,R,G,B,Usage,Contrast on ink
+brand-500,#F2540B,242,84,11,Primary actions links active states,Good
+brand-400,#FF8A3D,255,138,61,Gradient stop icons highlights,Good
+brand-200,#FFB27A,255,178,122,Secondary strokes on dark,Good
+ink-900,#0B1220,11,18,32,App sidebar and marketing background,Base
+ink-800,#111A29,17,26,41,Cards on dark,Elevated
+ink-700,#151F36,21,31,54,Hover surfaces on dark,Elevated
+line-200,#E5E8F0,229,232,240,Borders and dividers,Subtle
+surface-50,#F5F6FA,245,246,250,App canvas,Subtle
+white,#FFFFFF,255,255,255,Cards tables inputs,Max
+text-900,#0B1220,11,18,32,Primary text on light,High
+text-600,#59647A,89,100,122,Secondary text,Highest
+text-400,#8B94A7,139,148,167,Tertiary text labels,Highest
+success-600,#0E9F6E,14,159,110,Approved paid on track,Semantic
+warning-600,#D97706,217,119,6,Pending at risk,Semantic
+danger-600,#DC2626,220,38,38,Overdue critical rejected,Semantic
+info-600,#2563EB,37,99,235,In progress links,Semantic

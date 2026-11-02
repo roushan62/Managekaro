@@ -1,0 +1,12 @@
+{
+  "name": "managekaro",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Managekaro — Interior Fit-out & Construction ERP + HRM (static SaaS app, zero build step)",
+  "scripts": {
+    "dev": "node tools/serve.js",
+    "start": "node tools/serve.js"
+  },
+  "keywords": ["erp", "construction", "fitout", "hrm", "saas"],
+  "license": "UNLICENSED"
+}
